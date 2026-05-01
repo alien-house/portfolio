@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inquiry Automation Pipeline — Alien House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_work.css">
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="../index.html" class="nav-logo">Alien House<em style="color:var(--accent-warm);font-style:italic">.</em>SN</a>
+    <a href="../index.html#works" class="nav-back">← <span class="ja">制作物一覧へ戻る</span><span class="en">Back to works</span></a>
+    <button class="lang-toggle" onclick="toggleLang()">EN</button>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="sep">/</span>
+    <a href="../index.html#works">Works</a>
+    <span class="sep">/</span>
+    <span>Inquiry Automation</span>
+  </nav>
+
+  <!-- PRODUCT — image left / info right -->
+  <article class="product">
+    <!-- LEFT: Visual -->
+    <div class="product-visual">
+      <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" aria-label="pipeline diagram">
+        <!-- Webhook box -->
+        <rect x="40" y="30" width="160" height="44" />
+        <text x="120" y="50" text-anchor="middle" font-size="9" font-family="DM Sans" fill="currentColor" stroke="none" letter-spacing="1.5">WEBHOOK / FORM</text>
+        <text x="120" y="64" text-anchor="middle" font-size="7" font-family="DM Sans" fill="#7A7874" stroke="none" letter-spacing="1">CF7  ·  n8n trigger</text>
+        <line x1="120" y1="74" x2="120" y2="100" />
+        <polyline points="116,94 120,102 124,94" />
+        <!-- LLM box -->
+        <rect x="30" y="102" width="180" height="56" />
+        <text x="120" y="124" text-anchor="middle" font-size="9" font-family="DM Sans" fill="currentColor" stroke="none" letter-spacing="1.5">LLM CLASSIFICATION</text>
+        <text x="120" y="138" text-anchor="middle" font-size="7" font-family="DM Sans" fill="#7A7874" stroke="none" letter-spacing="1">Claude API  ·  reply gen</text>
+        <circle cx="60" cy="148" r="2" /><circle cx="68" cy="148" r="2" /><circle cx="76" cy="148" r="2" />
+        <line x1="120" y1="158" x2="120" y2="186" />
+        <polyline points="116,180 120,188 124,180" />
+        <!-- Gmail box -->
+        <rect x="40" y="188" width="160" height="44" />
+        <text x="120" y="208" text-anchor="middle" font-size="9" font-family="DM Sans" fill="currentColor" stroke="none" letter-spacing="1.5">GMAIL DRAFT</text>
+        <text x="120" y="222" text-anchor="middle" font-size="7" font-family="DM Sans" fill="#7A7874" stroke="none" letter-spacing="1">GAS  ·  draft saved</text>
+        <line x1="120" y1="232" x2="120" y2="258" />
+        <polyline points="116,252 120,260 124,252" />
+        <!-- Slack box -->
+        <rect x="50" y="260" width="140" height="40" />
+        <text x="120" y="278" text-anchor="middle" font-size="9" font-family="DM Sans" fill="currentColor" stroke="none" letter-spacing="1.5">SLACK NOTIFY</text>
+        <text x="120" y="290" text-anchor="middle" font-size="7" font-family="DM Sans" fill="#7A7874" stroke="none" letter-spacing="1">channel: #inquiry</text>
+      </svg>
+      <span class="product-visual-label">Fig. 01.A — system schematic</span>
+    </div>
+
+    <!-- RIGHT: Information -->
+    <div class="product-info">
+      <p class="product-cat">— No. 01 / Automation</p>
+      <h1 class="product-title"><em>Inquiry</em> Automation Pipeline</h1>
+      <p class="product-sub">inquiry-automation · 2024 — present</p>
+
+      <p class="product-lede">
+        <span class="ja">受信した問い合わせをLLMで分類・返信文を自動生成し、Gmail下書き保存とSlack通知まで一気通貫で自動化。GASとn8nの2パターンで実装し、要件に応じた使い分けを提案できるよう設計した。</span>
+        <span class="en">An end-to-end pipeline that classifies inbound inquiries, drafts a reply with an LLM, saves it to Gmail, and notifies the team in Slack. Built in both GAS and n8n to demonstrate flexible tooling decisions.</span>
+      </p>
+
+      <!-- Spec table -->
+      <div class="spec-section">
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-value">
+            <span class="ja">業務自動化ワークフロー</span>
+            <span class="en">Operational automation workflow</span>
+          </span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Role</span>
+          <span class="spec-value">
+            <span class="ja">設計 · 実装 · 運用</span>
+            <span class="en">Design · Implementation · Ops</span>
+          </span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Stack</span>
+          <span class="spec-value">Claude API · Google Apps Script · n8n · Slack API · Gmail API</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Latency</span>
+          <span class="spec-value">≈ 3 — 5 sec / inquiry</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Status</span>
+          <span class="spec-value">
+            <span class="ja">本番稼働中</span>
+            <span class="en">In production</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="swatches">
+        <span class="swatch">Claude API</span>
+        <span class="swatch">GAS</span>
+        <span class="swatch">n8n</span>
+        <span class="swatch">Slack</span>
+        <span class="swatch">Gmail</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="cta-row">
+        <a href="https://github.com/alien-house" target="_blank" class="btn-primary">
+          <span class="ja">GitHub を見る</span>
+          <span class="en">View on GitHub</span>
+          <span>→</span>
+        </a>
+        <a href="../index.html#contact" class="btn-ghost">
+          <span class="ja">この件で相談する</span>
+          <span class="en">Discuss this</span>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Detail: context -->
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">01 / Context</span>
+      <div class="detail-body">
+        <h2 class="detail-title">Background</h2>
+        <p>
+          <span class="ja">中小企業のBtoB問い合わせは1日10〜30件。担当者が1件ずつ分類し、過去返信を探し、文面を整える時間が積み上がる。<strong>定型対応に費やす時間を削り、担当者は判断と提案に集中する</strong> ─ そのための仕組みとして設計。</span>
+          <span class="en">SMB BtoB teams handle 10–30 inquiries per day. Most of the time goes into triage, finding past replies, and polishing wording. <strong>Reduce the routine work so the team can focus on judgement and proposals</strong> — that was the brief.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail: pipeline -->
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">02 / Pipeline</span>
+      <div class="detail-body">
+        <h2 class="detail-title">Pipeline stages</h2>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="num">N° 01</span>
+            <span class="stage"><span class="ja">受信フックの正規化</span><span class="en">Normalize inbound hook</span></span>
+            <span class="tech">CF7 / n8n trigger → JSON payload</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 02</span>
+            <span class="stage"><span class="ja">LLM分類 · 返信文生成</span><span class="en">LLM classification & reply</span></span>
+            <span class="tech">Claude API · category + draft</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 03</span>
+            <span class="stage"><span class="ja">Gmail下書き保存</span><span class="en">Save Gmail draft</span></span>
+            <span class="tech">Gmail API via GAS</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 04</span>
+            <span class="stage"><span class="ja">担当者へSlack通知</span><span class="en">Notify owner on Slack</span></span>
+            <span class="tech">Slack incoming webhook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail: outcome -->
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">03 / Outcome</span>
+      <div class="detail-body">
+        <h2 class="detail-title">Outcomes &amp; decisions</h2>
+        <ol class="list-clean">
+          <li><span class="ja">問い合わせ初動を約60%短縮 (運用ログ比較)。</span><span class="en">Initial-response time reduced by ~60% (measured in ops logs).</span></li>
+          <li><span class="ja">人手による「最終確認」工程は残し、誤送信リスクを排除。</span><span class="en">A human review step is preserved — drafts are never sent automatically.</span></li>
+          <li><span class="ja">GAS版は0コスト、n8n版は分岐拡張性。要件で選択可。</span><span class="en">GAS variant is zero-cost; n8n variant scales branching logic. Pick by need.</span></li>
+          <li><span class="ja">プロンプトはカテゴリごとに分離 ─ 後から追加・差し替えできる構成。</span><span class="en">Prompts are split per category, so they can be swapped without redeploy.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT WORK -->
+  <section class="next-section">
+    <div class="next-inner">
+      <div>
+        <p class="next-eyebrow">— Next case</p>
+        <h2 class="next-title">YouTube <em>AI</em> Pipeline</h2>
+      </div>
+      <div style="text-align: right;">
+        <a href="podtube-pipeline.html" class="next-link">
+          <span class="ja">次へ</span><span class="en">Next</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 — Alien House · AI Developer & UX Consultant</p>
+      <div class="footer-links">
+        <a href="https://github.com/alien-house" target="_blank">GitHub</a>
+        <a href="mailto:ucyuujinoco@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="_work.js"></script>
+</body>
+</html>
