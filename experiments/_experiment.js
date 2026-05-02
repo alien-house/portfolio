@@ -37,6 +37,55 @@ function getYoutubeDifyEndpoint() {
   return raw;
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** 「- … - …」のようなハイフン／中黒見出し行を `<ul>` にする。ほかは段落として表示。 */
+function formatSummaryAsHtml(text) {
+  const raw = String(text).trim();
+  if (!raw) return '';
+
+  let t = raw;
+  if (t.startsWith('「') && t.endsWith('」')) {
+    t = t.slice(1, -1).trim();
+  }
+
+  const lines = t.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const bulletLead = /^(?:「\s*)?[-*•–—‐]\s+/u;
+
+  const items = [];
+  for (const line of lines) {
+    const L = line.trim();
+    const isBullet = bulletLead.test(L);
+    if (isBullet) {
+      const content = L.replace(bulletLead, '').trim();
+      items.push(content);
+    } else if (items.length > 0) {
+      items[items.length - 1] = `${items[items.length - 1]} ${line}`.trim();
+    } else {
+      return proseSummaryToHtml(raw);
+    }
+  }
+
+  if (items.length === 0) return proseSummaryToHtml(raw);
+
+  return (
+    '<ul class="experiment-summary-list">' +
+    items.map((item) => '<li>' + escapeHtml(item) + '</li>').join('') +
+    '</ul>'
+  );
+}
+
+function proseSummaryToHtml(text) {
+  const escaped = escapeHtml(String(text).trim()).replace(/\n/g, '<br>');
+  return '<p class="experiment-summary-prose">' + escaped + '</p>';
+}
+
 function initYoutubeSummaryDemo() {
   const form = document.getElementById('exp-youtube-form');
   if (!form) return;
@@ -82,6 +131,8 @@ function initYoutubeSummaryDemo() {
       return;
     }
 
+    submitBtn.disabled = true;
+
     output.classList.add('is-loading');
     output.setAttribute('data-state', 'loading');
     output.innerHTML =
@@ -115,7 +166,7 @@ function initYoutubeSummaryDemo() {
 
         output.classList.remove('is-loading');
         output.removeAttribute('data-state');
-        output.textContent = summaryText;
+        output.innerHTML = formatSummaryAsHtml(summaryText);
         output.setAttribute('data-state', 'success');
       } else {
         await new Promise((r) => setTimeout(r, 1200));
