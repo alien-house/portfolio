@@ -61,7 +61,7 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  const inputField = (process.env.DIFY_INPUT_FIELD || 'url').trim() || 'url';
+  const inputField = (process.env.DIFY_INPUT_FIELD || 'youtube_url').trim() || 'youtube_url';
   const outputField = (process.env.DIFY_OUTPUT_FIELD || 'text').trim() || 'text';
 
   let body;
@@ -81,7 +81,11 @@ module.exports = async function handler(req, res) {
   }
 
   const url =
-    typeof body.url === 'string' ? body.url.trim().slice(0, 4096) : '';
+    typeof body.youtube_url === 'string'
+      ? body.youtube_url.trim().slice(0, 4096)
+      : typeof body.url === 'string'
+        ? body.url.trim().slice(0, 4096)
+        : '';
   if (url.length < 8) {
     return res.status(400).json({ detail: 'Missing or invalid "url"' });
   }
