@@ -110,7 +110,7 @@ async def portfolio_youtube_dify_summary(body: YouTubeDifyBody):
             detail="Dify proxy is not configured (DIFY_API_KEY / DIFY_WORKFLOW_URL).",
         )
 
-    input_field = os.getenv("DIFY_INPUT_FIELD", "url").strip() or "url"
+    input_field = os.getenv("DIFY_INPUT_FIELD", "youtube_url").strip() or "youtube_url"
     output_field = os.getenv("DIFY_OUTPUT_FIELD", "text").strip() or "text"
 
     payload = {
