@@ -25,6 +25,9 @@ function getYoutubeDifyEndpoint() {
   if (!raw) return '';
 
   if (raw.startsWith('/')) {
+    if (window.location.protocol === 'file:') {
+      return '';
+    }
     try {
       return new URL(raw, window.location.origin).href;
     } catch {
@@ -57,18 +60,9 @@ function initYoutubeSummaryDemo() {
     }
   }
 
-  function placeholderSummary(vidLabel) {
-    const body =
-      '<p><span class="ja">冒頭では「ツール選択」より先に業務コンテキストの言語化が必要だというスタンスが示される。続いて、入力データの整形・権限・ログ保全といった運用要件が、モデル選定より先に検討されるべきだと論じられている。中盤以降では、評価指標がビジネスKPIとどう繋げるか、ダッシュボード観察の粒度、そして異常検知のアラート設計まで踏み込む。結論として、自動化比率を一気に上げるより、レビューを挟んだ部分自動化から始め、ログを資産として蓄積する反復サイクルを推している。</span><span class="en">Opens with grounding business context before tool choice — then shifts to data hygiene, RBAC and audit logs as prerequisites ahead of picking a model. Mid-section ties evaluation metrics to business KPIs, dashboard granularity and alert design for drift or failure spikes. Closing argument favors partial automation with human review and iterative logging over a big‑bang rollout.</span></p>';
+  function placeholderSummary() {
     return (
-      body +
-      '<p style="margin-top:1rem;font-size:0.85rem;color:var(--text-light);">' +
-      '<span class="ja">※ モック要約です。meta または <code>PORTFOLIO_YOUTUBE_DIFY_ENDPOINT</code> にプロキシ URL を設定すると Dify 本番応答に切り替わります（' +
-      vidLabel +
-      '）。</span>' +
-      '<span class="en">※ Mock — set the meta tag or window.PORTFOLIO_YOUTUBE_DIFY_ENDPOINT to your proxy URL for live Dify (' +
-      vidLabel +
-      ').</span></p>'
+      '<p><span class="ja">冒頭では「ツール選択」より先に業務コンテキストの言語化が必要だというスタンスが示される。続いて、入力データの整形・権限・ログ保全といった運用要件が、モデル選定より先に検討されるべきだと論じられている。中盤以降では、評価指標がビジネスKPIとどう繋げるか、ダッシュボード観察の粒度、そして異常検知のアラート設計まで踏み込む。結論として、自動化比率を一気に上げるより、レビューを挟んだ部分自動化から始め、ログを資産として蓄積する反復サイクルを推している。</span><span class="en">Opens with grounding business context before tool choice — then shifts to data hygiene, RBAC and audit logs as prerequisites ahead of picking a model. Mid-section ties evaluation metrics to business KPIs, dashboard granularity and alert design for drift or failure spikes. Closing argument favors partial automation with human review and iterative logging over a big‑bang rollout.</span></p>'
     );
   }
 
@@ -88,20 +82,6 @@ function initYoutubeSummaryDemo() {
       return;
     }
 
-    let vidSnippet = '';
-    try {
-      const parsed = new URL(rawUrl);
-      if (parsed.hostname.replace(/^www\./, '') === 'youtu.be') {
-        vidSnippet = parsed.pathname.slice(1, 12) || '…';
-      } else {
-        const v = parsed.searchParams.get('v');
-        vidSnippet = (v && v.slice(0, 11)) || '…';
-      }
-    } catch {
-      vidSnippet = '…';
-    }
-
-    submitBtn.disabled = true;
     output.classList.add('is-loading');
     output.setAttribute('data-state', 'loading');
     output.innerHTML =
@@ -141,7 +121,7 @@ function initYoutubeSummaryDemo() {
         await new Promise((r) => setTimeout(r, 1200));
         output.classList.remove('is-loading');
         output.removeAttribute('data-state');
-        output.innerHTML = placeholderSummary(`video:${vidSnippet}`);
+        output.innerHTML = placeholderSummary();
         output.setAttribute('data-state', 'mock');
       }
     } catch (err) {
