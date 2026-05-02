@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="experiments/_experiment.css">
   <style>
     :root {
       /* Floema palette */
@@ -343,6 +344,25 @@
     .work-cta .arrow { transition: transform 0.3s; }
     .work-card:hover .work-cta .arrow { transform: translateX(6px); }
 
+    .experiments-more {
+      text-align: left;
+      padding-top: 1.75rem;
+    }
+    .experiments-more a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.25rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .experiments-more a:hover {
+      color: var(--accent-warm);
+      border-bottom-color: var(--accent-warm);
+    }
+
     /* ── SKILLS ── */
     .skills-grid {
       display: grid;
@@ -545,6 +565,7 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding: 7rem 1.5rem 4rem; gap: 3rem; }
       .section-head { grid-template-columns: 1fr; gap: 1rem; }
+      .works { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .container { padding: 0 1.5rem; }
@@ -627,6 +648,7 @@
     <a href="#" class="nav-logo">Alien House<em style="color:var(--accent-warm);font-style:italic">.</em>SN</a>
     <ul class="nav-links">
       <li><a href="#works" class="nav-link"><span class="ja">制作物</span><span class="en">Works</span></a></li>
+      <li><a href="#experiments" class="nav-link"><span class="ja">実験</span><span class="en">Experiments</span></a></li>
       <li><a href="#skills" class="nav-link"><span class="ja">スキル</span><span class="en">Skills</span></a></li>
       <li><a href="#about" class="nav-link"><span class="ja">プロフィール</span><span class="en">About</span></a></li>
       <li><a href="#contact" class="nav-link"><span class="ja">連絡先</span><span class="en">Contact</span></a></li>
@@ -817,10 +839,53 @@
     </div>
   </section>
 
+  <!-- EXPERIMENTS -->
+  <section id="experiments" class="container">
+    <div class="section-head reveal">
+      <span class="section-num">02 — Experiments</span>
+      <div>
+        <h2 class="section-title">Tiny <em>experiments.</em></h2>
+        <p class="section-intro">
+          <span class="ja">案件制作とは別レイヤーのプロトタイプ。Works より小さめのタイリングで最大5つまで並べ、API は後から差し込む想定です。</span>
+          <span class="en">Portfolio-adjacent prototypes — tighter tiles than Works (desktop band tops out at five) with backends swapped in later.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="experiments-grid">
+
+      <a href="experiments/youtube-summary.html" class="experiment-card reveal">
+        <div class="experiment-thumb">
+          <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="12" y="18" width="76" height="44" rx="2" />
+            <polygon points="44,34 44,54 62,44" stroke="none" fill="currentColor" />
+            <line x1="12" y1="72" x2="88" y2="72" />
+            <line x1="18" y1="76" x2="82" y2="76" stroke-dasharray="3 4" opacity="0.55" />
+          </svg>
+        </div>
+        <div class="experiment-meta">
+          <span class="experiment-num"><span class="ja">実験 01</span><span class="en">EXP 01</span></span>
+          <span class="experiment-cat">Summarization</span>
+        </div>
+        <h3 class="experiment-card-title"><em>AI YouTube</em> Summary</h3>
+        <p class="experiment-card-sub">youtube-summary</p>
+        <div class="experiment-card-cta">
+          <span><span class="ja">読む／試す</span><span class="en">Open</span></span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <p class="experiments-more reveal">
+      <a href="experiments/index.html"><span class="ja">実験一覧ページ</span><span class="en">Experiment index</span></a>
+    </p>
+  </section>
+
   <!-- SKILLS -->
   <section id="skills" class="container">
     <div class="section-head reveal">
-      <span class="section-num">02 — Skills</span>
+      <span class="section-num">03 — Skills</span>
       <div>
         <h2 class="section-title"><em>Capabilities.</em></h2>
         <p class="section-intro">
@@ -877,7 +942,7 @@
   <!-- ABOUT -->
   <section id="about" class="container">
     <div class="section-head reveal">
-      <span class="section-num">03 — About</span>
+      <span class="section-num">04 — About</span>
       <div>
         <h2 class="section-title"><em>About.</em></h2>
       </div>
@@ -942,7 +1007,7 @@
   <section class="contact" id="contact">
     <div class="contact-inner">
       <div>
-        <p class="contact-eyebrow">— 04 / Contact</p>
+        <p class="contact-eyebrow">— 05 / Contact</p>
         <h2 class="contact-title">Let's <em>build</em> it.</h2>
       </div>
       <div>
