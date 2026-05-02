@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- API キーは書かない。Vercel Env にだけ DIFY_* を入れる。
-       フロー: ブラウザ →（同じサイトの）Vercel 関数 → あなたの VPS 上の Dify。
-       同一デプロイなら meta の content はこれでよい:
+  <!-- プロキシは Vercel 同サイトを想定（秘密は Dashboard の環境変数のみ）。別 URL のときは値を書き換え／コメント -->
   <meta name="portfolio-youtube-dify-endpoint" content="/api/portfolio/youtube-dify-summary">
-  -->
   <title>AI YouTube Summary — Experiments · Alien House</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
