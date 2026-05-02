@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiments — Alien House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../works/_work.css">
+  <link rel="stylesheet" href="_experiment.css">
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="../index.html" class="nav-logo">Alien House<em style="color:var(--accent-warm);font-style:italic">.</em>SN</a>
+    <a href="../index.html#experiments" class="nav-back">← <span class="ja">ポートフォリオへ戻る</span><span class="en">Back to portfolio</span></a>
+    <button class="lang-toggle" type="button" onclick="toggleLang()">EN</button>
+  </nav>
+
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="sep">/</span>
+    <span>Experiments</span>
+  </nav>
+
+  <section class="experiments-list-head-wrap">
+    <div class="experiments-list-head reveal">
+      <span class="section-num">Laboratory · 実験</span>
+      <h1>Tiny <em>experiments.</em></h1>
+      <p class="lede">
+        <span class="ja">制作物とは別軸で検証プロトタイプを置く場所。一覧は最大5列のコンパクトグリッド（スマホでは折りたたまれます）。ゆっくり増やしていきます。</span>
+        <span class="en">Lightweight prototypes away from commissioned work — up to five compact tiles per band on desktop, wrapping on narrow viewports.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="experiments-list-board-wrap">
+    <div class="experiments-grid">
+      <a href="youtube-summary.html" class="experiment-card reveal">
+        <div class="experiment-thumb">
+          <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="12" y="18" width="76" height="44" rx="2" />
+            <polygon points="44,34 44,54 62,44" stroke="none" fill="currentColor" />
+            <line x1="12" y1="72" x2="88" y2="72" />
+            <line x1="18" y1="76" x2="82" y2="76" stroke-dasharray="3 4" opacity="0.45" />
+          </svg>
+        </div>
+        <div class="experiment-meta">
+          <span class="experiment-num"><span class="ja">実験 01</span><span class="en">EXP 01</span></span>
+          <span class="experiment-cat">Summarization</span>
+        </div>
+        <h3 class="experiment-card-title"><em>AI YouTube</em> Summary</h3>
+        <p class="experiment-card-sub">youtube-summary</p>
+        <div class="experiment-card-cta">
+          <span><span class="ja">読む／試す</span><span class="en">Open</span></span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+      <div class="experiment-coming-slot reveal">
+        <p>
+          <span class="ja">空き<br>順次公開</span>
+          <span class="en">More<br>soon</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 — Alien House · AI Developer &amp; UX Consultant</p>
+      <div class="footer-links">
+        <a href="https://github.com/alien-house" target="_blank">GitHub</a>
+        <a href="https://forms.gle/oMqXbGdAaw5aK77K9" target="_blank">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="_experiment.js"></script>
+</body>
+</html>

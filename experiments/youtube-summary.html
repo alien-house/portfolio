@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- API キーは書かない。Vercel Env にだけ DIFY_* を入れる。
+       フロー: ブラウザ →（同じサイトの）Vercel 関数 → あなたの VPS 上の Dify。
+       同一デプロイなら meta の content はこれでよい:
+  <meta name="portfolio-youtube-dify-endpoint" content="/api/portfolio/youtube-dify-summary">
+  -->
+  <title>AI YouTube Summary — Experiments · Alien House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../works/_work.css">
+  <link rel="stylesheet" href="_experiment.css">
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="../index.html" class="nav-logo">Alien House<em style="color:var(--accent-warm);font-style:italic">.</em>SN</a>
+    <a href="index.html" class="nav-back">← <span class="ja">実験一覧へ戻る</span><span class="en">Back to experiments</span></a>
+    <button class="lang-toggle" type="button" onclick="toggleLang()">EN</button>
+  </nav>
+
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="sep">/</span>
+    <a href="index.html">Experiments</a>
+    <span class="sep">/</span>
+    <span>AI YouTube Summary</span>
+  </nav>
+
+  <article class="product">
+    <div class="product-visual">
+      <svg viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" aria-label="diagram: video to summary">
+        <rect x="40" y="36" width="160" height="90" rx="3" />
+        <polygon points="108,71 108,97 134,84" stroke="none" fill="currentColor" />
+        <line x1="120" y1="126" x2="120" y2="154" />
+        <polyline points="116,146 120,154 124,146" />
+        <rect x="30" y="156" width="180" height="52" />
+        <text x="120" y="178" text-anchor="middle" font-size="8" fill="currentColor" stroke="none" letter-spacing="1.6">TRANSCRIPT</text>
+        <text x="120" y="194" text-anchor="middle" font-size="7" fill="#7A7874" stroke="none">Whisper / captions</text>
+        <line x1="120" y1="208" x2="120" y2="238" />
+        <polyline points="116,230 120,238 124,230" />
+        <rect x="38" y="240" width="164" height="56" />
+        <text x="120" y="262" text-anchor="middle" font-size="8" fill="currentColor" stroke="none" letter-spacing="1.4">LLM SUMMARY</text>
+        <text x="120" y="278" text-anchor="middle" font-size="7" fill="#7A7874" stroke="none">stream to UI</text>
+      </svg>
+      <span class="product-visual-label"><span class="ja">Fig. E1 — 処理の流れ</span><span class="en">Fig. E1 — processing sketch</span></span>
+    </div>
+
+    <div class="product-info">
+      <p class="product-cat experiment-tag">— Exp. 01 / Summarization</p>
+      <h1 class="product-title"><em>AI YouTube</em> Summary</h1>
+      <p class="product-sub">youtube-summary · experiments</p>
+
+      <p class="product-lede">
+        <span class="ja">YouTube の公開動画 URL を渡すだけで字幕または音声転写を経由し、要約テキストを返す実験。バックエンドは別コンテナ／API と接続予定で、現時点ではモック結果で UI の流れを確認できる。</span>
+        <span class="en">Paste a public YouTube URL — captions or transcripts flow through normalization and summarization. Backend wiring lands separately; the page already exercises the interaction with mock output.</span>
+      </p>
+
+      <div class="spec-section">
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-value">
+            <span class="ja">インタラクティブ実験</span>
+            <span class="en">Interactive experiment</span>
+          </span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Interface</span>
+          <span class="spec-value"><span class="ja">動画 URL → 要約テキスト表示</span><span class="en">Video URL → summarized text</span></span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Stack <span class="en">(planned)</span><span class="ja">（予定）</span></span>
+          <span class="spec-value">yt-dlp / captions · Whisper · LLM API</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Status</span>
+          <span class="spec-value">
+            <span class="ja">フロント UI のみ（モック応答）</span>
+            <span class="en">Front-end only · mock responses</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="swatches">
+        <span class="swatch">YouTube</span>
+        <span class="swatch">Transcript</span>
+        <span class="swatch">LLM</span>
+      </div>
+
+      <div class="cta-row">
+        <a href="#experiment-live" class="btn-primary">
+          <span class="ja">試すセクションへ</span>
+          <span class="en">Jump to live UI</span>
+          <span>↓</span>
+        </a>
+        <a href="../index.html#contact" class="btn-ghost">
+          <span class="ja">同様の機能を相談</span>
+          <span class="en">Discuss a build like this</span>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <section class="experiment-tool" id="experiment-live">
+    <div class="experiment-tool-inner reveal">
+      <p class="experiment-tool-eyebrow">Live UI · prototype</p>
+      <form id="exp-youtube-form" class="experiment-demo-form" novalidate>
+        <div class="experiment-demo-row">
+          <div class="experiment-demo-field">
+            <label for="exp-youtube-url">YouTube URL</label>
+            <input id="exp-youtube-url" name="youtube_url" type="url" required placeholder="https://www.youtube.com/watch?v=…" autocomplete="off" autocapitalize="none" spellcheck="false">
+          </div>
+          <div class="experiment-demo-actions">
+            <button type="submit" class="btn-primary" id="exp-submit-summary">
+              <span class="ja">要約を生成</span>
+              <span class="en">Summarize</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+        <p class="hint">
+          <span class="ja">送信すると下に結果が現れます。現状はローカルのモックです。API 接続後は同じ欄に実データが入ります。</span>
+          <span class="en">Submit to render below; output is mocked in-browser until the API is wired.</span>
+        </p>
+        <div class="experiment-output-wrap">
+          <h2 class="experiment-output-title"><span class="ja">要約結果</span><span class="en">Summary</span></h2>
+          <div id="exp-summary-output" class="experiment-output" tabindex="-1" role="region" aria-live="polite" data-state="idle">
+            <span class="ja">URL を入力して「要約を生成」を押すと、この欄にプレビューが表示されます。</span>
+            <span class="en">Enter a URL and run Summarize — output appears here (mock transcript for now).</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">01 / Goal</span>
+      <div class="detail-body">
+        <h2 class="detail-title">Purpose</h2>
+        <p>
+          <span class="ja">長尺の技術講義・カンファレンス・アーカイブを、後追いレビューや議事への転用できる短い知識に圧縮する。<strong>「見る時間がないときに、論点だけを安全に掬い取れる」</strong>ことを優先すると、モデルだけでなく転写経路や引用・出典ポリシーまで設計対象になる。</span>
+          <span class="en">Compress long technical talks into reviewable briefing notes. Prioritizing <strong>recovering arguments without watching the clock</strong> forces design beyond the model — transcript sources, grounding and citation policy matter too.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">02 / Flow</span>
+      <div class="detail-body">
+        <h2 class="detail-title"><span class="ja">処理イメージ</span><span class="en">Pipeline sketch</span></h2>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <span class="num">N° 01</span>
+            <span class="stage"><span class="ja">入力検証・動画参照の解決</span><span class="en">Validate URL & resolve video reference</span></span>
+            <span class="tech">Public watch / youtu.be</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 02</span>
+            <span class="stage"><span class="ja">転写ソースの選択</span><span class="en">Pick transcript path</span></span>
+            <span class="tech">Captions when available · else audio ASR</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 03</span>
+            <span class="stage"><span class="ja">整形・チャンキング・要約</span><span class="en">Normalize, chunk &amp; summarize</span></span>
+            <span class="tech">Token budget · hallucination guards</span>
+          </div>
+          <div class="pipeline-step">
+            <span class="num">N° 04</span>
+            <span class="stage"><span class="ja">UI へのストリーム／表示</span><span class="en">Stream render to UI</span></span>
+            <span class="tech">SSE or chunked JSON · this surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="detail-grid">
+      <span class="detail-num">03 / Notes</span>
+      <div class="detail-body">
+        <h2 class="detail-title">Design notes</h2>
+        <ol class="list-clean">
+          <li><span class="ja">自動生成テキストは一次情報ではない — 画面上で常にステータス（公式字幕 / 音声推定など）が読めるようにする。</span><span class="en">Generated text is secondary — expose transcript provenance plainly in the eventual production UI.</span></li>
+          <li><span class="ja">長尺はチャンク要約後に統合する二段構成にすると、モデルコンテキストを守りやすい。</span><span class="en">Very long spans benefit from chunked summarize-then-merge to respect context ceilings.</span></li>
+          <li><span class="ja">利用規約・レート・コストにより、サービス側で「許可ソース」のホワイトリストを持つのが無難。</span><span class="en">TOS + rate limits + cost argue for curated allowlists in a hosted variant.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="next-section">
+    <div class="next-inner">
+      <div>
+        <p class="next-eyebrow"><span class="ja">一覧へ</span><span class="en">Experiment index</span></p>
+        <h2 class="next-title"><span class="ja">ほかの実験も見る</span><span class="en">Explore <em>more</em></span></h2>
+      </div>
+      <div style="text-align:right;">
+        <a href="index.html" class="next-link">
+          <span class="ja">実験トップへ</span><span class="en">Experiments hub</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 — Alien House · AI Developer &amp; UX Consultant</p>
+      <div class="footer-links">
+        <a href="https://github.com/alien-house" target="_blank">GitHub</a>
+        <a href="https://forms.gle/oMqXbGdAaw5aK77K9" target="_blank">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="_experiment.js"></script>
+</body>
+</html>
