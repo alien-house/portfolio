@@ -37,7 +37,7 @@
         <polyline points="116,146 120,154 124,146" />
         <rect x="30" y="156" width="180" height="52" />
         <text x="120" y="178" text-anchor="middle" font-size="8" fill="currentColor" stroke="none" letter-spacing="1.6">TRANSCRIPT</text>
-        <text x="120" y="194" text-anchor="middle" font-size="7" fill="#7A7874" stroke="none">Whisper / captions</text>
+        <text x="120" y="194" text-anchor="middle" font-size="7" fill="#7A7874" stroke="none">YouTube Captions API</text>
         <line x1="120" y1="208" x2="120" y2="238" />
         <polyline points="116,230 120,238 124,230" />
         <rect x="38" y="240" width="164" height="56" />
@@ -53,8 +53,8 @@
       <p class="product-sub">youtube-summary · experiments</p>
 
       <p class="product-lede">
-        <span class="ja">YouTube の公開動画 URL を渡すだけで字幕または音声転写を経由し、要約テキストを返す実験。バックエンドは別コンテナ／API と接続予定で、現時点ではモック結果で UI の流れを確認できる。</span>
-        <span class="en">Paste a public YouTube URL — captions or transcripts flow through normalization and summarization. Backend wiring lands separately; the page already exercises the interaction with mock output.</span>
+        <span class="ja">YouTube の公開動画 URL を入力するだけで、字幕テキストを取得し AI が要約して返します。Dify ワークフローと連携済みで、実際に動作します。</span>
+        <span class="en">Paste a public YouTube URL — captions are fetched and summarized via a Dify workflow. Fully wired and working.</span>
       </p>
 
       <div class="spec-section">
@@ -70,21 +70,22 @@
           <span class="spec-value"><span class="ja">動画 URL → 要約テキスト表示</span><span class="en">Video URL → summarized text</span></span>
         </div>
         <div class="spec-row">
-          <span class="spec-label">Stack <span class="en">(planned)</span><span class="ja">（予定）</span></span>
-          <span class="spec-value">yt-dlp / captions · Whisper · LLM API</span>
+          <span class="spec-label">Stack</span>
+          <span class="spec-value">YouTube Transcript API · Dify · LLM</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Status</span>
           <span class="spec-value">
-            <span class="ja">フロント UI のみ（モック応答）</span>
-            <span class="en">Front-end only · mock responses</span>
+            <span class="ja">Dify ワークフロー接続済み・動作中</span>
+            <span class="en">Live · Dify workflow connected</span>
           </span>
         </div>
       </div>
 
       <div class="swatches">
         <span class="swatch">YouTube</span>
-        <span class="swatch">Transcript</span>
+        <span class="swatch">Captions</span>
+        <span class="swatch">Dify</span>
         <span class="swatch">LLM</span>
       </div>
 
@@ -120,14 +121,14 @@
           </div>
         </div>
         <p class="hint">
-          <span class="ja">送信すると下に結果が現れます。現状はローカルのモックです。API 接続後は同じ欄に実データが入ります。</span>
-          <span class="en">Submit to render below; output is mocked in-browser until the API is wired.</span>
+          <span class="ja">字幕が取得できる公開動画であれば要約が返ります。字幕のない動画には対応していません。</span>
+          <span class="en">Works with public videos that have captions available. Videos without captions are not supported.</span>
         </p>
         <div class="experiment-output-wrap">
           <h2 class="experiment-output-title"><span class="ja">要約結果</span><span class="en">Summary</span></h2>
           <div id="exp-summary-output" class="experiment-output" tabindex="-1" role="region" aria-live="polite" data-state="idle">
-            <span class="ja">URL を入力して「要約を生成」を押すと、この欄にプレビューが表示されます。</span>
-            <span class="en">Enter a URL and run Summarize — output appears here (mock transcript for now).</span>
+            <span class="ja">URL を入力して「要約を生成」を押すと、ここに要約が表示されます。</span>
+            <span class="en">Enter a URL and press Summarize — the result will appear here.</span>
           </div>
         </div>
       </form>
@@ -160,8 +161,8 @@
           </div>
           <div class="pipeline-step">
             <span class="num">N° 02</span>
-            <span class="stage"><span class="ja">転写ソースの選択</span><span class="en">Pick transcript path</span></span>
-            <span class="tech">Captions when available · else audio ASR</span>
+            <span class="stage"><span class="ja">字幕の取得</span><span class="en">Fetch captions</span></span>
+            <span class="tech">YouTube Transcript API</span>
           </div>
           <div class="pipeline-step">
             <span class="num">N° 03</span>
@@ -184,9 +185,9 @@
       <div class="detail-body">
         <h2 class="detail-title">Design notes</h2>
         <ol class="list-clean">
-          <li><span class="ja">自動生成テキストは一次情報ではない — 画面上で常にステータス（公式字幕 / 音声推定など）が読めるようにする。</span><span class="en">Generated text is secondary — expose transcript provenance plainly in the eventual production UI.</span></li>
-          <li><span class="ja">長尺はチャンク要約後に統合する二段構成にすると、モデルコンテキストを守りやすい。</span><span class="en">Very long spans benefit from chunked summarize-then-merge to respect context ceilings.</span></li>
-          <li><span class="ja">利用規約・レート・コストにより、サービス側で「許可ソース」のホワイトリストを持つのが無難。</span><span class="en">TOS + rate limits + cost argue for curated allowlists in a hosted variant.</span></li>
+          <li><span class="ja">AIが生成した要約は動画そのものではない。「公式字幕をもとに要約しています」といった出典情報をUIに表示し、ユーザーが判断できるようにする。</span><span class="en">AI-generated summaries are not the source — show users where the transcript came from (e.g. official captions) so they can judge reliability themselves.</span></li>
+          <li><span class="ja">字幕テキストはYouTube Transcript APIで取得し、そのままDifyワークフローに渡して要約する。字幕が存在しない動画には非対応。</span><span class="en">Captions are fetched via YouTube Transcript API and passed directly to a Dify workflow for summarization. Videos without captions are not supported.</span></li>
+          <li><span class="ja">YouTubeの利用規約やAPIの呼び出し制限・コストを考慮すると、処理対象の動画をあらかじめ決めておく運用が現実的。</span><span class="en">Given YouTube's TOS, rate limits and API costs, it's practical to pre-define which videos or channels are allowed to be processed.</span></li>
         </ol>
       </div>
     </div>
@@ -196,7 +197,7 @@
     <div class="next-inner">
       <div>
         <p class="next-eyebrow"><span class="ja">一覧へ</span><span class="en">Experiment index</span></p>
-        <h2 class="next-title"><span class="ja">ほかの実験も見る</span><span class="en">Explore <em>more</em></span></h2>
+        <h2 class="next-title">See more <em>experiments</em></h2>
       </div>
       <div style="text-align:right;">
         <a href="index.html" class="next-link">
