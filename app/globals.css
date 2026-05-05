@@ -1,0 +1,10 @@
+@import '../styles/work.css';
+@import '../styles/experiment.css';
+@import '../styles/portfolio-home.css';
+
+/* next/font — variables applied on <html> in layout */
+:root {
+  --font-display: var(--font-fraunces), 'DM Serif Display', Georgia, serif;
+  --font-body: var(--font-manrope), 'DM Sans', system-ui, sans-serif;
+  --font-jp: var(--font-noto-jp), 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+}

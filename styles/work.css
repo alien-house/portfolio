@@ -37,7 +37,7 @@ nav#nav {
   align-items: center;
   background: rgba(247, 245, 242, 0.92);
   backdrop-filter: blur(8px);
-  z-index: 100;
+  z-index: 1000;
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s;
 }
